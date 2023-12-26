@@ -1,0 +1,38 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_tags %}
+
+{% block title %}
+Posts
+{% endblock title %}
+
+{% block content %}
+   <h1>All posts</h1>
+   <h3>{% into_time '%d %b %Y' %}</h3>
+
+   <h3> News number: {{ posts|length}} </h3>
+
+   <h3> {{ next_post }} </h3>
+
+   <hr>
+   {% if posts %}
+       <table>
+           <tr>
+               <td>Title</td>
+               <td>Date</td>
+               <td>Description</td>
+           </tr>
+
+           {% for post in posts %}
+           <tr>
+               <td>{{ post.post_name }}</td>
+               <td>{{ post.post_time_in|date:'d M Y'}}</td>
+               <td>{{ post.post_text|truncatewords:20 }}</td>
+           </tr>
+           {% endfor %}
+
+       </table>
+   {% else %}
+       <h2>No news!</h2>
+   {% endif %}
+{% endblock content %}
